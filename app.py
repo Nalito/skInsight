@@ -1,14 +1,18 @@
-import streamlit as st
+from flask import Flask, render_template, request, redirect, url_for
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import img_to_array, load_img
-import numpy as np
+from tensorflow.keras.preprocessing.image import img_to_array
 from PIL import Image
+import numpy as np
+import os
 
 # Load the TensorFlow model
-model = tf.keras.models.load_model('model.h5') 
+model = tf.keras.models.load_model('model.h5')  # Replace with your .h5 file
+class_names = ['Eczema', 'Folliculitis', 'Insect Bite', 'Tinea', 'Urticaria']  # Replace with your actual class names
 
-# Define class names (adjust based on your model's classes)
-class_names = ['Eczema', 'Folliculitis', 'Insect Bite', 'Tinea', 'Urticaria']  
+# Initialize Flask app
+app = Flask(__name__)
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Function to preprocess the input image
 def preprocess_image(image, target_size=(224, 224)):
@@ -18,25 +22,31 @@ def preprocess_image(image, target_size=(224, 224)):
     image_array /= 255.0  # Normalize to [0, 1]
     return image_array
 
-# Streamlit app
-st.title("Skin Defect Detection")
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        # Get the uploaded file
+        file = request.files['file']
+        if file:
+            # Save the uploaded image
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(image_path)
 
-# File uploader for user to input an image
-uploaded_file = st.file_uploader("Upload an image of the skin defect", type=["jpg", "png", "jpeg"])
+            # Preprocess the image
+            image = Image.open(image_path)
+            processed_image = preprocess_image(image)
 
-if uploaded_file is not None:
-    # Display the uploaded image
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
-    
-    # Preprocess the image
-    processed_image = preprocess_image(image)
-    
-    # Make prediction
-    prediction = model.predict(processed_image)
-    predicted_class = class_names[np.argmax(prediction)]
-    confidence = np.max(prediction)
-    
-    # Display the result
-    st.write(f"### Prediction: {predicted_class}")
-    st.write(f"### Confidence: {confidence:.2f}")
+            # Make prediction
+            prediction = model.predict(processed_image)
+            predicted_class = class_names[np.argmax(prediction)]
+            confidence = np.max(prediction)
+
+            # Render the result
+            return render_template('index.html', image_path=image_path, prediction=predicted_class, confidence=f"{confidence:.2f}")
+
+    return render_template('index.html', image_path=None)
+
+if __name__ == '__main__':
+    # Create upload folder if not exists
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+    app.run(debug=True)

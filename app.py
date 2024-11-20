@@ -20,6 +20,8 @@ def preprocess_image(image, target_size=(224, 224)):
 
 # Streamlit app
 st.title("Skin Defect Detection")
+logo = Image.open("logo.png")
+st.image(logo)
 
 # File uploader for user to input an image
 uploaded_file = st.file_uploader("Upload an image of the skin defect", type=["jpg", "png", "jpeg"])

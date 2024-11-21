@@ -42,3 +42,7 @@ if uploaded_file is not None:
     # Display the result
     st.write(f"### Prediction: {predicted_class}")
     st.write(f"### Confidence: {confidence:.2f}")
+
+
+if __name__ == '__main__':     
+    st.set_option('server.enableCORS', True) 

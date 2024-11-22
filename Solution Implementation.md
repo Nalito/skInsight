@@ -2,7 +2,7 @@
 Briefly describe the prototype here
 
 ## Model Development (CRISP-DM)
-[CRISP-DM Model](static/images/crispdm.png)
+[CRISP-DM Model](static/uploads/crispdm.png)
 
 ## Technologies Used
 

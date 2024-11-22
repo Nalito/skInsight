@@ -1,5 +1,14 @@
 # skin-defect-detection
-![skInsight](logo.png)
+
+## Team Details
+### Team Name
+skInsight
+
+### Project Description
+
+
+### Team Members
+1. [Nalito](github.com/Nalito) Oduwaiye Ifeoluwa
 
 ## Initial Setup:
 Clone repo and create a virtual environment
@@ -26,3 +35,6 @@ $ (venv) streamlit run
 ```
 
 The deployed application is available here: https://skinsight.streamlit.app/ 🤗
+
+
+![skInsight](logo.png)

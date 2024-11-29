@@ -4,6 +4,7 @@ A python script that takes in an input image and returns the identified skin def
 
 ## Model Development
 The **CRISP-DM** model was used for the development of skInsight. CRISP-DM (Cross-Industry Standard Process for Data Mining) is a widely adopted framework for data mining projects, including those in computer vision. It provides a structured, iterative approach to guide teams through the entire data mining process, from business understanding to deployment.
+
 ![CRISP-DM Model](static/uploads/crispdm.png)
 
 ## Technologies Used

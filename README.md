@@ -26,15 +26,8 @@ $ (venv) pip install -r requirements.txt
 ## Model Development
 The model development code is contained in this [Jupyter notebook](skin_defect_detection.ipynb).
 
-## Deployment to Azure App Services
-The deployed application is available here: [skInsight](https://skinsight-e6e6hmhhgjfdf7ec.canadacentral-01.azurewebsites.net/) 🤗
-
-## Streamlit Deployment
-```
-$ (venv) streamlit run
-```
-
-The deployed application is available here: https://skinsight.streamlit.app/ 🤗
-
+## Model Inferencing on Azure ML Studio
+The model inference script is contained in this [Python file](infer.py).
+![image](https://github.com/user-attachments/assets/4581c16c-61d8-47c2-ae7e-13205e6148c7)
 
 ![skInsight](logo.png)
